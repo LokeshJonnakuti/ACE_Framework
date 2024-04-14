@@ -34,11 +34,11 @@ class Layer1(Layer):
         self.work_begun = True
 
         identity_dir = self.get_identities_dir()
-        identity_env = Environment(loader=FileSystemLoader(identity_dir))
+        identity_env = Environment(loader=FileSystemLoader(identity_dir), autoescape=True)
         identity = identity_env.get_template("l1_identity.md").render()
 
         template_dir = self.get_template_dir()
-        env = Environment(loader=FileSystemLoader(template_dir))
+        env = Environment(loader=FileSystemLoader(template_dir), autoescape=True)
         l1_starting_instructions = env.get_template("l1_starting_instructions.md")
         ace_context = env.get_template("ace_context.md")
         layer1_instructions = l1_starting_instructions.render(
@@ -79,8 +79,8 @@ class Layer1(Layer):
     def get_op_description(self, content):
         op_dir = self.get_operations_dir()
         outputs_dir = self.get_outputs_dir()
-        op_env = Environment(loader=FileSystemLoader(op_dir))
-        outputs_env = Environment(loader=FileSystemLoader(outputs_dir))
+        op_env = Environment(loader=FileSystemLoader(op_dir), autoescape=True)
+        outputs_env = Environment(loader=FileSystemLoader(outputs_dir), autoescape=True)
         match content:
             case "CREATE_REQUEST":
                 op_description = op_env.get_template("create_request_data.md")
@@ -95,7 +95,7 @@ class Layer1(Layer):
 
     def process_layer_messages(self, control_messages, data_messages, request_messages, response_messages, telemetry_messages):
         identity_dir = self.get_identities_dir()
-        identity_env = Environment(loader=FileSystemLoader(identity_dir))
+        identity_env = Environment(loader=FileSystemLoader(identity_dir), autoescape=True)
         identity = identity_env.get_template("l1_identity.md").render()
 
         self.message_count += 1
@@ -115,7 +115,7 @@ class Layer1(Layer):
         }
 
         template_dir = self.get_template_dir()
-        env = Environment(loader=FileSystemLoader(template_dir))
+        env = Environment(loader=FileSystemLoader(template_dir), autoescape=True)
         l1_operation_classifier = env.get_template("l1_operation_classifier.md")
         ace_context = env.get_template("ace_context.md").render()
         op_classifier_prompt = l1_operation_classifier.render(
@@ -141,7 +141,7 @@ class Layer1(Layer):
 
         # If operation classifier says to do nothing, do not bother asking llm for a response
         op_dir = self.get_operations_dir()
-        op_env = Environment(loader=FileSystemLoader(op_dir))
+        op_env = Environment(loader=FileSystemLoader(op_dir), autoescape=True)
         do_nothing_data = op_env.get_template("do_nothing_data.md").render()
         if op_prompt == do_nothing_data:
             return [], []

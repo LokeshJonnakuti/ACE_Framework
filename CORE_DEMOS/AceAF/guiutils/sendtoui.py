@@ -21,7 +21,7 @@ class ApiClient:
         # url = self.BASE_URL + self.endpoints[target]
         url = self.BASE_URL + target
         print(f"\nSending message to {url}: {message}")
-        response = requests.post(url, json={'message': message})
+        response = requests.post(url, json={'message': message}, timeout=60)
         print(f"\nResponse: {response}")
 
         return response.json()

@@ -110,7 +110,7 @@ class KivyApp(App):
                 "message": self.chat.text
             }
 
-            self.result = requests.post('http://127.0.0.1:5001/bot', json=data)
+            self.result = requests.post('http://127.0.0.1:5001/bot', json=data, timeout=60)
             # Clear the chat box after sending
             self.chat.text = ''
 

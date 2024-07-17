@@ -28,7 +28,7 @@ class Layer2(Layer):
 
     def process_layer_messages(self, control_messages, data_messages, request_messages, response_messages, telemetry_messages):
         identity_dir = self.get_identities_dir()
-        identity_env = Environment(loader=FileSystemLoader(identity_dir))
+        identity_env = Environment(loader=FileSystemLoader(identity_dir), autoescape=True)
         identity = identity_env.get_template("l2_identity.md").render()
 
         data_req_messages, control_req_messages = self.parse_req_resp_messages(request_messages)
@@ -44,7 +44,7 @@ class Layer2(Layer):
         }
 
         template_dir = self.get_template_dir()
-        env = Environment(loader=FileSystemLoader(template_dir))
+        env = Environment(loader=FileSystemLoader(template_dir), autoescape=True)
         operation_classifier = env.get_template("operation_classifier.md")
         ace_context = env.get_template("ace_context.md").render()
         op_classifier_prompt = operation_classifier.render(

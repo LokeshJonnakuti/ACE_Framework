@@ -139,8 +139,8 @@ class Layer(Resource):
     def get_op_description(self, content, southbound_outputs_filename, nourthbound_outputs_filename):
         op_dir = self.get_operations_dir()
         outputs_dir = self.get_outputs_dir()
-        op_env = Environment(loader=FileSystemLoader(op_dir))
-        outputs_env = Environment(loader=FileSystemLoader(outputs_dir))
+        op_env = Environment(loader=FileSystemLoader(op_dir), autoescape=True)
+        outputs_env = Environment(loader=FileSystemLoader(outputs_dir), autoescape=True)
         operation_map = parse_json(content)
         south_op = operation_map["SOUTH"]
         north_op = operation_map["NORTH"]

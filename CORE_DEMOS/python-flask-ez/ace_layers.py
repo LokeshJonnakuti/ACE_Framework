@@ -31,7 +31,7 @@ def send_message(bus, layer, message):
     url = 'http://127.0.0.1:900/message'
     headers = {'Content-Type': 'application/json'}
     data = {'bus': bus, 'layer': layer, 'message': message}
-    response = requests.post(url, headers=headers, data=json.dumps(data))
+    response = requests.post(url, headers=headers, data=json.dumps(data), timeout=60)
     if response.status_code == 200:
         print('Message sent successfully')
     else:
@@ -41,7 +41,7 @@ def send_message(bus, layer, message):
 
 def get_messages(bus, layer):
     url = f'http://127.0.0.1:900/message?bus={bus}&layer={layer}'
-    response = requests.get(url)
+    response = requests.get(url, timeout=60)
     if response.status_code == 200:
         messages = response.json()['messages']
         return messages

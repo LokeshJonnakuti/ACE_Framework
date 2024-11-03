@@ -27,7 +27,7 @@ class Interface:
             "message": f"{message}\n"
         }
 
-        requests.post(url, json=data)
+        requests.post(url, json=data, timeout=60)
 
     def get_device_info(self):
         # Operating System Information

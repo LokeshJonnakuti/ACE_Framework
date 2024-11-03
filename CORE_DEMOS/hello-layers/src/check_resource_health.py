@@ -16,7 +16,7 @@ HOST = f'http://localhost:{constants.DEFAULT_API_ENDPOINT_PORT}'
 def main():
     logger.debug("Checking resource health...")
     try:
-        response = requests.get(f"{HOST}/status")
+        response = requests.get(f"{HOST}/status", timeout=60)
         if response.status_code == 200:
             data = response.json()
             if "up" in data and data["up"] is True:

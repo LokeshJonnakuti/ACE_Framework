@@ -7,6 +7,7 @@ from datetime import datetime
 from halo import Halo
 import textwrap
 import yaml
+from security import safe_requests
 
 
 ###     file operations
@@ -41,7 +42,7 @@ def send_message(bus, layer, message):
 
 def get_messages(bus, layer):
     url = f'http://127.0.0.1:900/message?bus={bus}&layer={layer}'
-    response = requests.get(url)
+    response = safe_requests.get(url)
     if response.status_code == 200:
         messages = response.json()['messages']
         return messages

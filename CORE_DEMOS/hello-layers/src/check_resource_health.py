@@ -7,6 +7,7 @@ import requests
 
 from ace.logger import Logger
 from ace import constants
+from security import safe_requests
 
 logger = Logger(os.path.basename(__file__))
 
@@ -16,7 +17,7 @@ HOST = f'http://localhost:{constants.DEFAULT_API_ENDPOINT_PORT}'
 def main():
     logger.debug("Checking resource health...")
     try:
-        response = requests.get(f"{HOST}/status")
+        response = safe_requests.get(f"{HOST}/status")
         if response.status_code == 200:
             data = response.json()
             if "up" in data and data["up"] is True:
